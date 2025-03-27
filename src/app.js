@@ -112,7 +112,7 @@ connectDB()
   .then(() => {
     console.log("Database connected successfully");
 
-    app.listen(process.env.PORT, () => {
+    app.listen(process.env.PORT || 3000, () => {
       console.log("server started on server 3000");
     });
   })
