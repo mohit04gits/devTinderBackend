@@ -13,7 +13,7 @@ authRouter.post("/signup", async (req, res) => {
 
     //encrypting password for security purpose
     const passwordHash = await bcrypt.hash(password, 10);
-    console.log(passwordHash);
+    //console.log(passwordHash);
 
     const user = new User({
       firstName,
@@ -42,6 +42,7 @@ authRouter.post("/login", async (req, res) => {
       throw new Error("Invalid credentials");
     }
     const isPasswordvalid = await user.validatePassword(password);
+    console.log(password)
     if (isPasswordvalid) {
       const token = await user.getJWT(); //get jwt is used for generating token
       console.log("token", token);

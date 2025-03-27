@@ -26,8 +26,6 @@ const connectionRequestSchema = new mongoose.Schema(
 //connectionRequestSchema.find({fromUserId: ,toUserId:})
 //connectionRequestSchema.index({fromUserId: 1, toUserId:1});
 
-
-
 connectionRequestSchema.pre("save", function (next) {
   if (this.fromUserId.equals(this.toUserId)) {
     return next(new Error("Cannot send a request to yourself"));
@@ -36,8 +34,8 @@ connectionRequestSchema.pre("save", function (next) {
 });
 
 const ConnectionRequestModel = new mongoose.model(
-    "ConnectionRequest",
-    connectionRequestSchema
+  "ConnectionRequest",
+  connectionRequestSchema
 );
 
 module.exports = ConnectionRequestModel;

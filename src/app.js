@@ -26,31 +26,6 @@ app.use("/", profileRouter);
 app.use("/", requestRouter);
 app.use("/",userRouter);
 
-
-// // app.get("/admin/data", (req, res) => {
-// //   res.send({ name: "Mohit kumar", Age: 20 });
-// // });
-
-// // app.get("/user", (req, res) => {
-// //   res.send("hello user is here");
-// // });
-
-// // app.get("/user/data", (req, res) => {
-// //   res.send({ name: "user", data: "data" });
-// // });
-
-// // app.get("/getUserData", (req, res) => {
-// //   throw new Error("fghsgs");
-// //   res.send("user data send");
-// // });
-
-// // app.use("/", (err, req, res, next) => {
-// //   if (err) {
-// //     res.status(501).send("something went wrong");
-// //   }
-// // });
-
-// //get user by emailId
 //feed
 app.get("/feed",userAuth, async (req, res) => {
   try {
@@ -112,7 +87,7 @@ connectDB()
   .then(() => {
     console.log("Database connected successfully");
 
-    app.listen(process.env.PORT, () => {
+    app.listen(process.env.PORT || 3000, () => {
       console.log("server started on server 3000");
     });
   })
