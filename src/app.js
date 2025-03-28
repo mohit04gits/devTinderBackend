@@ -15,12 +15,17 @@ require("dotenv").config();
 // const jwt = require("jsonwebtoken");
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors(
-  {
-    origin:["http://localhost:5173","https://devtinderfrontend.onrender.com"]
-    credentials:true,
-  }
-));
+const cors = require("cors");
+
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://devtinderfrontend.onrender.com"], // Allow both local and deployed frontend
+    methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allow necessary headers
+    credentials: true, // Must be placed correctly (not inside 'origin' array)
+  })
+);
+
 
 
 
