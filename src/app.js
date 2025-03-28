@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: ["http://localhost:5173", "https://devtinderfrontend.onrender.com"], // Allow both local and deployed frontend
-    methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods
+    methods: ["GET", "POST", "PUT", "DELETE","PATCH"], // Specify allowed methods
     allowedHeaders: ["Content-Type", "Authorization"], // Allow necessary headers
     credentials: true, // Must be placed correctly (not inside 'origin' array)
   })
