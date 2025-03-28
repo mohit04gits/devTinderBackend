@@ -15,7 +15,7 @@ require("dotenv").config();
 // const jwt = require("jsonwebtoken");
 app.use(express.json());
 app.use(cookieParser());
-const cors = require("cors");
+
 
 app.use(
   cors({
