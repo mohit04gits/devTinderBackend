@@ -35,26 +35,31 @@ authRouter.post("/signup", async (req, res) => {
 //NOTE->just after login a jwt token generarted and added to cookie
 authRouter.post("/login", async (req, res) => {
   try {
-    //finding user
     const { emailId, password } = req.body;
     const user = await User.findOne({ emailId: emailId });
+
     if (!user) {
       throw new Error("Invalid credentials");
     }
-    const isPasswordvalid = await user.validatePassword(password);
-    console.log(password)
-    if (isPasswordvalid) {
-      const token = await user.getJWT(); //get jwt is used for generating token
-      console.log("token", token);
-      res.cookie("token", token, {
-        expiresIn: "1d",
-      });
-      res.send(user);
-    } else {
-      throw new Error("wrong password");
+
+    const isPasswordValid = await user.validatePassword(password);
+    if (!isPasswordValid) {
+      throw new Error("Wrong password");
     }
+
+    const token = await user.getJWT(); // Generates JWT token
+
+    // **Fix: Proper cookie settings**
+    res.cookie("token", token, {
+      httpOnly: true, // **Prevents client-side access**
+      secure: process.env.NODE_ENV === "production", // **Only for HTTPS**
+      sameSite: "None", // **For cross-origin requests**
+      expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // **1-day expiry**
+    });
+
+    res.status(200).json({ message: "Login successful" });
   } catch (err) {
-    res.status(400).send("Error: " + err.message);
+    res.status(400).json({ error: err.message });
   }
 });
 
