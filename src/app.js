@@ -4,6 +4,13 @@ const cors = require("cors")
 const User = require("./model/user")
 const connectDB = require("./config/database");
 const cookieParser = require("cookie-parser");
+const authRouter = require("./routes/auth");
+const profileRouter = require("./routes/profile");
+const sendConnectionRequest = require("./routes/requests");
+const requestRouter = require("./routes/requests");
+const { userAuth } = require("./middlewares/auth");
+const userRouter = require("./routes/user");
+
 require("dotenv").config();
 // const jwt = require("jsonwebtoken");
 app.use(express.json());
@@ -14,17 +21,17 @@ app.use(cors(
     credentials:true,
   }
 ));
-const authRouter = require("./routes/auth");
-const profileRouter = require("./routes/profile");
-const sendConnectionRequest = require("./routes/requests");
-const requestRouter = require("./routes/requests");
-const { userAuth } = require("./middlewares/auth");
-const userRouter = require("./routes/user");
+
+
+
+
+
 
 app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", requestRouter);
 app.use("/",userRouter);
+
 
 //feed
 app.get("/feed",userAuth, async (req, res) => {
@@ -48,6 +55,8 @@ app.delete("/user", async (req, res) => {
     }
   }
 });
+
+
 
 //update
 app.patch("/user/:userId", async (req, res) => {
