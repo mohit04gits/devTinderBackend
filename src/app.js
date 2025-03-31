@@ -120,12 +120,31 @@ initializeSocket(server); //calling with server
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
+<<<<<<< HEAD
 app.use(
   cors({
     origin: "http://localhost:5173",
     credentials: true,
   })
 );
+=======
+
+
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://devtinderfrontend.onrender.com"], // Allow both local and deployed frontend
+    methods: ["GET", "POST", "PUT", "DELETE","PATCH"], // Specify allowed methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allow necessary headers
+    credentials: true, // Must be placed correctly (not inside 'origin' array)
+  })
+);
+
+
+
+
+
+
+>>>>>>> da49bc7d9b9abd521aad9a0cd21bb4c4a2499afd
 
 // Routes
 app.use("/", authRouter);

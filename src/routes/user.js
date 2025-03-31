@@ -56,15 +56,17 @@ userRouter.get("/feed", userAuth, async (req, res) => {
       $or: [{ fromUserId: loggedInUser._id }, { toUserId: loggedInUser._id }],
     }).select("fromUserId toUserId");
 
-    // creating a set
     const hideUsersFromFeed = new Set();
     connectionRequests.forEach((req) => {
       hideUsersFromFeed.add(req.fromUserId.toString());
       hideUsersFromFeed.add(req.toUserId.toString());
     });
+<<<<<<< HEAD
     // console.log(hideUsersFromFeed);
 
     //res.send(connectionRequests);
+=======
+>>>>>>> da49bc7d9b9abd521aad9a0cd21bb4c4a2499afd
 
     const users = await User.find({
       $and: [
@@ -72,9 +74,10 @@ userRouter.get("/feed", userAuth, async (req, res) => {
         { _id: { $ne: loggedInUser._id } },
       ],
     }).select(USER_SAFE_DATA);
-    res.send(users);
+
+    return res.status(200).json(users);
   } catch (err) {
-    res.status.apply(400).json({ message: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 
